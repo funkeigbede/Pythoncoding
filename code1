@@ -1,0 +1,20 @@
+#A A factorial (of a large number) will usually contain some trailing zeros. This code makes a function that calculates the number of trailing zeros, in any given base.
+
+def trailing_zeros(n, base):
+    count = float('inf')
+    for prime_factor in range(2, base + 1):
+        if base % prime_factor == 0:
+            exp = 0
+            while base % prime_factor == 0:
+                exp += 1
+                base //= prime_factor
+
+            num_times = 0
+            power = prime_factor
+            while power <= n:
+                num_times += n // power
+                power *= prime_factor
+            
+            count = min(count, num_times // exp)
+
+    return count
